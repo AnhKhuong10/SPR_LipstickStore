@@ -1,0 +1,45 @@
+.card{
+    border-color: transparent;
+}
+
+/* MODAL ========================================================================================== */
+
+.modal-backdrop.show {
+    opacity: .75;
+}
+
+.modal-content {
+    border-radius: 12px;
+    border: none;
+}
+
+.modal-content .btn-close {
+    background: transparent;
+    color: var(--primary-text);
+    font-size: 20px;
+    display: flex;
+}
+
+.modal-content .btn-close:focus {
+    box-shadow: none;
+}
+
+.modal-content .modal-header {
+    border-bottom: 1px solid transparent;
+    padding: 16px 20px;
+}
+
+.modal-content .modal-header .modal-title,
+.modal-content .modal-sub-title {
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.modal-content .modal-body {
+    padding: 0 20px;
+}
+
+.modal-content .modal-footer {
+    border-top: 1px solid transparent;
+    padding: 16px;
+}

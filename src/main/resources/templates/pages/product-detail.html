@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Layout</title>
+    <link th:href="@{/css/product-detail.css}" rel="stylesheet">
+</head>
+<body>
+<th:block layout:fragment="content">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-6" style="display: flex; justify-content: center;">
+                <img th:src="@{'/images/products/' + ${product.productImage}}" alt="Product Image" width="331"
+                     height="331">
+            </div>
+            <div class="col-6 detail-product">
+                <h3 th:text="${product.productName}"></h3>
+                <h4><b>Giá :</b> <span th:text="*{#numbers.formatInteger(product.productPrice, 3, 'POINT')}"
+                                       style="color: red"></span><sup>đ</sup></h4>
+                <p><b>Mô tả :</b> <span th:text="${product.productDescription}"></span></p>
+                <p><b>Thương hiệu :</b> <span th:text="${product.brand.brandName}"></span></p>
+                <p><b>Loại :</b> <span th:text="${product.category.categoryName}"></span></p>
+                <div class="actions">
+                    <b>Số lượng</b>
+                    <button class="minus">-</button>
+                    <input id="quantity-Input" type="text" class="quantity" value="1" readonly style="width: 50px;">
+                    <button class="plus">+</button>
+                    <span id="quantity-sock" th:text="${product.productQuantity}"></span> sản phẩm có sẵn
+                </div>
+                <div class="link-btn mt-4">
+                    <div class="a-btn">
+                        <button th:onclick="'javascript:addToCart(' + ${product.id} + ')'" type="button"><i
+                                class="bi bi-cart-plus me-2"></i> Thêm vào giỏ hàng</a></button>
+                    </div>
+                    <div class="a-btn">
+                        <button type="button"> Mua ngay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+<th:block layout:fragment="js">
+    <script th:src="@{/js/pages/product-detail.js}"></script>
+</th:block>
+</body>
+</html>

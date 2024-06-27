@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Footer</title>
+    <link th:href="@{/css/footer.css}" rel="stylesheet">
+</head>
+<body>
+<div th:fragment="footer">
+    <section id="foot-section" class="container-fluid pt-2 mt-3">
+        <div class="container mt-5">
+            <div class="row content-footer">
+                <div class="col-3">
+                    <h5>
+                        KYO AUTHENTIC</h5>
+                    <div class="link-info">
+                        <ul>
+                            <li><p><b>CN1:</b> 12 Ngõ 86 Phố Chùa Hà, Cầu Giấy, Hà Nội (hoặc 12/12 Phố Nguyễn Văn Huyên)</p></li>
+                            <li><p><b>CN2:</b> Tòa C Westbay, KĐT Ecopark, Văn Giang, Hưng Yên</p></li>
+                            <li><p><b>Email:</b> kyoauthentic@gmail.com</p></li>
+                            <li><p><b>Điện thoại:</b> 0987654321</p></li>
+                            <li><p><b>Hotline:</b>098989898-099999999</p></li>
+                            <li><p><b>Mở cửa:</b> Từ T2 đến CN, 9H - 22H</p></li>
+                            <li><p><b>Kyo Authentic:</b> Hệ thống bán Mỹ phẩm, Quà tặng, Son môi, Nước hoa chính hãng</p></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <h5>THÔNG TIN HỖ TRỢ</h5>
+                    <div class="link-info">
+                        <ul>
+                            <li><a href="#">Giới thiệu</a></li>
+                            <li><a href="#">Liên hệ</a></li>
+                            <li><a href="#">Hướng dẫn mua hàng</a></li>
+                            <li><a href="#">Theo dõi đơn hàng</a></li>
+                            <li><a href="#">Hướng dẫn đổi trả hàng</a></li>
+                            <li><a href="#">Chính sách vận chuyển</a></li>
+                            <li><a href="#">Chính sách bảo mật</a></li>
+                            <li><a href="#">Bán buôn mỹ phẩm</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <h5>DANH MỤC CHÍNH</h5>
+                    <div class="link-info">
+                        <ul>
+                            <li><a href="# ">Kotlin</a></li>
+                            <li><a href="# ">JetBrains Mono</a></li>
+                            <li><a href="# ">JetBrains Research</a></li>
+                            <li><a href="# ">Open Source Projects</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <h5>THEO DÕI CHÚNG TÔI</h5>
+                    <div class="link-info">
+                        <ul>
+                            <li><p>Đăng ký email để không bỏ lỡ các chương trình khuyến mãi và những thông tin mới nhất</p></li>
+                            <li><a href="#">Open Source Support</a></li>
+                            <li><a href="#">User Groups</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<th:block layout:fragment="js">
+</th:block>
+</body>
+</html>

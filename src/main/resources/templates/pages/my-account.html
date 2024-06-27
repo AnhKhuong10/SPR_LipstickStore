@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layout.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>My account</title>
+    <link th:href="@{/css/my-account.css}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+<th:block layout:fragment="content">
+    <section id="mt-account">
+        <div class="container light-style flex-grow-1 container-p-y">
+
+            <h4 class="font-weight-bold py-3 mb-4">
+                Cài đặt tài khoản
+            </h4>
+            <div class="card overflow-hidden">
+                <div class="row no-gutters row-bordered row-border-light">
+                    <div class="col-md-3 pt-0">
+                        <div class="list-group list-group-flush account-settings-links">
+                            <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#account-general" th:classappend="${activeTab == 'account-general'} ? 'active' : ''">Hồ sơ của tôi</a>
+                            <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#account-change-password" th:classappend="${activeTab == 'account-change-password'} ? 'active' : ''">Đổi mật khẩu</a>
+                            <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#account-info" th:classappend="${activeTab == 'account-info'} ? 'active' : ''">Địa chỉ</a>
+                            <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#account-order" th:classappend="${activeTab == 'account-order'} ? 'active' : ''">Đơn mua</a>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <div class="tab-pane fade" id="account-general" th:classappend="${activeTab == 'account-general'} ? 'active show' : ''">
+<!--                                <hr class="border-light m-0">-->
+                                <form th:action="@{/editProfile}" method="post" th:object="${updateUser}">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" class="form-control mb-1"
+                                               th:value="${username}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Phone</label>
+                                        <input type="text" class="form-control" th:field="*{mobile}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Gender</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="male"
+                                                   value="1" th:field="*{gender}">
+                                            <label class="form-check-label" for="male">
+                                                Male
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="gender" id="female"
+                                                   value="2" th:field="*{gender}">
+                                            <label class="form-check-label" for="female">
+                                                Female
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" class="form-control" th:field="*{email}">
+                                    </div>
+                                </div>
+                                <div class="text-right mt-3 mb-3">
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                    &nbsp
+                                </div>
+                            </form>
+                            </div>
+                            <div class="tab-pane fade" id="account-change-password" th:classappend="${activeTab == 'account-change-password'} ? 'active show' : ''">
+                                <form th:action="@{/changePassword}" method="post">
+                                    <div class="card-body pb-2">
+                                        <div class="form-group">
+                                            <label class="form-label">Current password</label>
+                                            <input type="password" class="form-control" name="currentPassword">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">New password</label>
+                                            <input type="password" class="form-control" name="newPassword">
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Repeat new password</label>
+                                            <input type="password" class="form-control" name="repeatPassword">
+                                        </div>
+                                        <p style="color: red" th:if="${errorMessage}" th:text="${errorMessage}"></p>
+                                        <button type="submit" class="btn btn-primary mt-3 mb-3">Update Password</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="account-info" th:classappend="${activeTab == 'account-info'} ? 'active show' : ''">
+                                <h2>Địa chỉ của bạn</h2>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <form th:each="address : ${userAddresses}" method="post" action="/set-default-address">
+                                            <div class="address-item">
+                                                <input type="hidden" name="addressId" th:value="${address.id}">
+                                                <span th:text="${address.receiverName}"></span> <br>
+                                                <span th:text="${address.receiverPhone}"></span> <br>
+                                                <span th:text="${address.userAddressName}"></span> <br>
+                                                <span th:text="${address.defaultAddress} ? '(Mặc định)' : ''"></span>
+                                                <button th:unless="${address.defaultAddress}" type="submit">Set as default</button>
+                                                <hr>
+                                            </div>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="account-order" th:classappend="${activeTab == 'account-order'} ? 'active show' : ''">
+                                <div class="card-body pb-2">
+                                    <h2>Đơn mua của bạn</h2>
+                                    <ul class="nav nav-tabs" id="orderStatusTabs" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link active" id="all-orders-tab" data-bs-toggle="tab" href="#all-orders" role="tab" aria-controls="all-orders" aria-selected="true">Tất cả đơn hàng</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="pending-orders-tab" data-bs-toggle="tab" href="#pending-orders" role="tab" aria-controls="pending-orders" aria-selected="false">Chờ xác nhận</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="processing-orders-tab" data-bs-toggle="tab" href="#processing-orders" role="tab" aria-controls="processing-orders" aria-selected="false">Đang xử lý</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="shipping-orders-tab" data-bs-toggle="tab" href="#shipping-orders" role="tab" aria-controls="shipping-orders" aria-selected="false">Đang giao</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="completed-orders-tab" data-bs-toggle="tab" href="#completed-orders" role="tab" aria-controls="completed-orders" aria-selected="false">Hoàn thành</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="cancelled-orders-tab" data-bs-toggle="tab" href="#cancelled-orders" role="tab" aria-controls="cancelled-orders" aria-selected="false">Đã hủy</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="returned-orders-tab" data-bs-toggle="tab" href="#returned-orders" role="tab" aria-controls="returned-orders" aria-selected="false">Trả hàng</a>
+                                        </li>
+                                    </ul>
+                                    <div class="container-order">
+                                        <div class="tab-content" id="orderStatusTabsContent">
+                                            <!-- Tất cả đơn hàng -->
+                                            <div class="tab-pane fade show active" id="all-orders" role="tabpanel" aria-labelledby="all-orders-tab">
+                                                <div class="list-group">
+                                                    <div class="order-item" th:each="order : ${myUser.orderList}">
+                                                        <div class="order-header row">
+                                                            <div class="col-md-6">
+                                                                <h2>Đơn hàng số <span th:text="${order.orderNumber}"></span></h2>
+                                                                <p>Ngày tạo: <span th:text="${#dates.format(order.orderCreateAt, 'dd/MM/yyyy HH:mm:ss')}"></span></p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <br>
+                                                                <p>Trạng thái: <span th:text="${order.orderStatus.orderStatus}"></span></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="order-body">
+                                                            <ul class="order-detail-list">
+                                                                <li class="order-detail-item" th:each="detail : ${order.orderDetailList}">
+                                                                    <div class="product-info">
+                                                                        <img th:src="@{'/images/products/' + ${detail.productImage}}" alt="Product Image">
+                                                                        <div class="product-details">
+                                                                            <p>Sản phẩm: <span th:text="${detail.productName}"></span></p>
+                                                                            <p>Giá: <span th:text="*{#numbers.formatInteger(detail.productPrice, 3, 'POINT')}"></span><sup>đ</sup></p>
+                                                                            <p>Số lượng: <span th:text="${detail.quantity}"></span></p>
+                                                                            <p>Thành tiền: <span th:text="*{#numbers.formatInteger(detail.amount, 3, 'POINT')}"></span><sup>đ</sup></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <p>Tổng số tiền: <span th:text="*{#numbers.formatInteger(order.orderTotalAmount, 3, 'POINT')}"></span><sup>đ</sup></p>
+                                                        <div class="order-actions">
+
+                                                            <br>
+                                                            <a href="#" class="btn">Hủy</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Chờ xác nhận -->
+                                            <div class="tab-pane fade" id="pending-orders" role="tabpanel" aria-labelledby="pending-orders-tab">
+                                                <div class="list-group">
+                                                    <h2>Chờ xác nhận</h2>
+                                                </div>
+                                            </div>
+                                            <!-- Đang xử lý -->
+                                            <div class="tab-pane fade" id="processing-orders" role="tabpanel" aria-labelledby="processing-orders-tab">
+                                                <div class="list-group">
+                                                    <h2>Chờ xác nhận</h2>
+                                                </div>
+                                            </div>
+                                            <!-- Đang giao -->
+                                            <div class="tab-pane fade" id="shipping-orders" role="tabpanel" aria-labelledby="shipping-orders-tab">
+                                                <div class="list-group">
+                                                    <h2>Chờ xác nhận</h2>
+                                                </div>
+                                            </div>
+                                            <!-- Hoàn thành -->
+                                            <div class="tab-pane fade" id="completed-orders" role="tabpanel" aria-labelledby="completed-orders-tab">
+                                                <div class="list-group">
+                                                    <h2>Chờ xác nhận</h2>
+                                                </div>
+                                            </div>
+                                            <!-- Đã hủy -->
+                                            <div class="tab-pane fade" id="cancelled-orders" role="tabpanel" aria-labelledby="cancelled-orders-tab">
+                                                <div class="list-group">
+                                                    <h2>Chờ xác nhận</h2>
+                                                </div>
+                                            </div>
+                                            <!-- Trả hàng -->
+                                            <div class="tab-pane fade" id="returned-orders" role="tabpanel" aria-labelledby="returned-orders-tab">
+                                                <div class="list-group">
+                                                    <h2>Chờ xác nhận</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-right mt-3">
+                <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
+                <button type="button" class="btn btn-default">Cancel</button>
+            </div>
+        </div>
+    </section>
+</th:block>
+<th:block layout:fragment="js">
+    <script th:src="@{/js/pages/my-account.js}"></script>
+</th:block>
+</body>
+</html>
+<div th:if="${successMessage != null}">
+    <script>
+        Swal.fire({
+            title: 'Thành công!',
+            text: /*[[${successMessage}]]*/ '',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        });
+    </script>
+</div>

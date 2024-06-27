@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">KYO</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap-icons.min.css}">
+
+
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/header.css}" rel="stylesheet">
+    <link th:href="@{/css/footer.css}" rel="stylesheet">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+</head>
+<body>
+<div th:replace="~{component/header :: header}"></div>
+<div th:replace="~{component/navbar :: navbar}"></div>
+
+<th:block layout:fragment="content"></th:block>
+<th:block layout:fragment="modal"></th:block>
+<div th:replace="~{toast/toast-success :: toast-success}"></div>
+<div th:replace="~{toast/toast-error :: toast-error}"></div>
+
+<div th:replace="~{component/footer :: footer}"></div>
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+<th:block layout:fragment="js"></th:block>
+</body>
+</html>
+<!--th ->static, fix cung, layout--- dong khi nao can moi lay ra-->

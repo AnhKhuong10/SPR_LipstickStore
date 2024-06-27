@@ -1,0 +1,58 @@
+.actions input {
+    width: 20px;
+    margin: 0;
+}
+
+.actions button {
+    width: 40px;
+    margin: 0;
+}
+
+.actions .remove {
+    background-color: red;
+    color: #ffffff;
+    border: 1px solid red;
+    border-radius: 0 2px 2px 0;
+}
+
+.actions .minus {
+    font-weight: 600;
+}
+
+.actions .plus {
+    font-weight: 600;
+}
+
+p, span, b {
+    font-size: 21px;
+}
+
+.detail-product .link-btn{
+    margin: 20px;
+    display: flex;
+    width: 600px;
+}
+
+.detail-product .link-btn .a-btn{
+    width: 230px;
+}
+
+.detail-product .link-btn a{
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: black;
+    padding: 10px 20px;
+    font-size: 18px;
+}
+
+.detail-product .link-btn button{
+    text-decoration: none;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: black;
+    padding: 8px 12px;
+    font-size: 18px;
+}
+
+

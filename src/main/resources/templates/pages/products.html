@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Products</title>
+    <link th:href="@{/css/products.css}" rel="stylesheet">
+</head>
+<body>
+<th:block layout:fragment="content" >
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-3 mb-5" th:each="product : ${productPage.content}">
+                <div class="card">
+                    <img th:src="@{'/images/products/' + ${product.productImage}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <div class="card-title-1">
+                            <a class="card-title" th:href="@{/main/detailProduct/{id}(id=${product.id})}"
+                               th:text="${product.productName}" style="height: 150px"></a>
+                        </div>
+                        <div class="price text-center mb-3 fw-bold text-danger">
+                            <span th:text="*{#numbers.formatInteger(product.productPrice, 3, 'POINT')}"></span><sup>đ</sup>
+                        </div>
+                        <div class="text-center">
+                            <a th:href="@{/main/detailProduct/{id}(id=${product.id})}"
+                               class="btn btn-primary">View Detail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hiển thị nút phân trang -->
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${productPage.hasPrevious()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/main/pages/products(page=${productPage.number - 1}, size=${productPage.size})}">Previous</a>
+            </li>
+            <li class="page-item" th:each="i : ${#numbers.sequence(0, productPage.totalPages - 1)}" th:classappend="${i == productPage.number} ? 'active'">
+                <a class="page-link" th:href="@{/main/pages/products(page=${i}, size=${productPage.size})}" th:text="${i + 1}">1</a>
+            </li>
+            <li class="page-item" th:classappend="${productPage.hasNext()} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{/main/pages/products(page=${productPage.number + 1}, size=${productPage.size})}">Next</a>
+            </li>
+        </ul>
+    </nav>
+</th:block>
+
+<th:block layout:fragment="js">
+    <script th:src="@{/js/common.js}"></script>
+</th:block>
+</body>
+</html>

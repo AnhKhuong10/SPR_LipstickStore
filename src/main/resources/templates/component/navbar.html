@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Products</title>
+    <link th:href="@{/css/products.css}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-body-tertiary navbar-css" th:fragment="navbar">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/main/pages/products}"><img src="/images/logo/logo-kyo.png" alt="" width="180" height="62"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/main/pages/products}">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Loại son
+                    </a>
+                    <!--                        <li><a class="dropdown-item" th:href="@{/main/find(categoryId=1)}">Son thỏi</a></li>-->
+                    <!--                        <li><a class="dropdown-item" th:href="@{/main/find(categoryId=2)}">Son kem</a></li>-->
+                    <!--                        <li><a class="dropdown-item" th:href="@{/main/find(categoryId=3)}">Son dưỡng</a></li>-->
+                    <ul class="dropdown-menu">
+                        <li th:each="cate : ${category}">
+                            <a class="dropdown-item" th:href="@{/main/findByCategory/{id}(id=${cate.id})}" th:text="${cate.categoryName}"></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Thương hiệu
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li th:each="brand : ${brands}">
+                            <a class="dropdown-item" th:href="@{/main/findByBrand/{id}(id=${brand.id})}" th:text="${brand.brandName}"></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/admin/report/excel}">Xuat file excel</a>
+                </li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>-->
+                <!--                </li>-->
+            </ul>
+            <form class="d-flex" role="search" th:action="@{/main/search}" method="get">
+                <input class="form-control me-2" type="search" name="productName" placeholder="Nhập tên sản phẩm"
+                       aria-label="Search">
+                <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+            </form>
+            <!--            <a href="#"><i class="bi bi-cart-plus ms-2" style="color: hotpink"></i></a>-->
+            <!--            <span id="quantity-item-in-cart" th:text="${session.totalProductQuantity} == null ? 0 : ${session.totalProductQuantity}"></span>-->
+
+            <!--            <a href="#"><i id="quantity-item-in-cart" class="fa badge fa-lg" th:attr="value=(${session.totalProductQuantity} == null ? 0 : ${session.totalProductQuantity})" style="color:hotpink; background-color: #FCF3F5">&#xf290;</i></a>-->
+
+            <a href="#" class="cart-popup-trigger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i id="quantity-item-in-cart" class="fa badge fa-lg"
+                   th:attr="value=(${session.totalProductQuantity} == null ? 0 : ${session.totalProductQuantity})"
+                   style="color:hotpink; background-color: #FCF3F5">
+                    &#xf290;
+                </i>
+            </a>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                Sản phẩm trong giỏ hàng (<span th:text="${session.totalProductQuantity} != null ? ${session.totalProductQuantity} : 0"></span>)
+                            </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul th:if="${session.cart != null and #lists.size(session.cart) > 0}">
+                                <li th:each="cartItem : ${session.cart}">
+                                    <span th:text="${#strings.substring(cartItem.name, 0, 25) + (cartItem.name.length() > 25 ? '...' : '')}"></span> - <span th:text="${cartItem.quantity}"></span>
+                                </li>
+                            </ul>
+                            <p th:if="${session.cart == null or session.cart.size() == 0}">Giỏ hàng trống</p>
+                        </div>
+                        <div class="modal-footer">
+<!--                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+                            <a th:href="@{/cart}" class="btn-order-details">Xem gio hang</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<th:block layout:fragment="js">
+    <script th:src="@{/js/navbar.js}"></script>
+</th:block>
+</body>
+</html>

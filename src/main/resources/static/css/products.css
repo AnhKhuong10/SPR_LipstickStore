@@ -1,0 +1,11 @@
+.card-body a{
+    text-decoration: none;
+}
+
+.card-title-1{
+    height: 75px;
+}
+
+body{
+    overflow-x: hidden;
+}

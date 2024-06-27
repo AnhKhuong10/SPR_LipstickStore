@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap-icons.min.css}">
+    <link th:href="@{/css/common.css}" rel="stylesheet">
+    <link th:href="@{/css/navbar.css}" rel="stylesheet">
+    <link th:href="@{/css/header.css}" rel="stylesheet">
+    <link th:href="@{/css/footer.css}" rel="stylesheet">
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container" id="container">
+    <div class="form-container sign-up-container">
+        <form action="#">
+            <h1>Create Account</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your email for registration</span>
+            <input type="text" placeholder="Name" />
+            <input type="email" placeholder="Email" />
+            <input type="password" placeholder="Password" />
+            <button>Sign Up</button>
+        </form>
+    </div>
+    <div class="form-container sign-in-container">
+        <form th:action="@{/login}" method="post">
+            <h1>Sign in</h1>
+                            <div class="social-container">
+                                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                            <span>or use your account</span>
+            <input type="text" placeholder="Username" name="username" th:value="${username}"/>
+            <input type="password" placeholder="Password" name="password" th:value="${password}"/>
+            <div class="form-group">
+                <input type="checkbox" id="rememberMe" name="remember-me">
+                <label for="rememberMe">Remember Me</label>
+            </div>
+            <p style="color: red" th:text="${ERROR}"></p>
+            <a href="#">Forgot your password?</a>
+            <button>Sign In</button>
+            <a th:href="@{/main/pages/products}">Home page</a>
+        </form>
+    </div>
+
+    <div class="overlay-container">
+        <div class="overlay">
+            <div class="overlay-panel overlay-left">
+                <h1>Welcome Back!</h1>
+                <p>To keep connected with us please login with your personal info</p>
+                <button class="ghost" id="signIn">Sign In</button>
+            </div>
+            <div class="overlay-panel overlay-right">
+                <h1>Hello, Friend!</h1>
+                <p>Enter your personal details and start journey with us</p>
+                <button class="ghost" id="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/pages/login.js}"></script>
+<script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Login</title>-->
+<!--    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">-->
+<!--    <link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap-icons.min.css}">-->
+<!--    <link th:href="@{/css/common.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/css/navbar.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/css/header.css}" rel="stylesheet">-->
+<!--    <link th:href="@{/css/footer.css}" rel="stylesheet">-->
+<!--    <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">-->
+<!--    <link th:href="@{/css/login.css}" rel="stylesheet">-->
+<!--</head>-->
+<!--<body>-->
+<!--    <div class="container" id="container">-->
+<!--        <div class="form-container sign-up-container">-->
+<!--            <form action="#">-->
+<!--                <h1>Create Account</h1>-->
+<!--                <div class="social-container">-->
+<!--                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>-->
+<!--                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>-->
+<!--                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>-->
+<!--                </div>-->
+<!--                <span>or use your email for registration</span>-->
+<!--                <input type="text" placeholder="Name" />-->
+<!--                <input type="email" placeholder="Email" />-->
+<!--                <input type="password" placeholder="Password" />-->
+<!--                <button>Sign Up</button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--        <div class="form-container sign-in-container">-->
+<!--            <form th:action="@{/checkLogin}" method="post">-->
+<!--                <h1>Sign in</h1>-->
+<!--&lt;!&ndash;                <div class="social-container">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <span>or use your account</span>&ndash;&gt;-->
+<!--                <input type="text" placeholder="Username" name="username" th:value="${username}"/>-->
+<!--&lt;!&ndash;                <div th:if="${usernameWrong}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p>Your username is not correct</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                <input type="password" placeholder="Password" name="password" th:value="${password}"/>-->
+<!--&lt;!&ndash;                <div th:if="${passwordWrong}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <p>Your password is not correct</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                <p style="color: red" th:text="${ERROR}"></p>-->
+<!--                <a href="#">Forgot your password?</a>-->
+<!--                <button>Sign In</button>-->
+<!--                <a th:href="@{/main/pages/products}">Home page</a>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--        <div class="overlay-container">-->
+<!--            <div class="overlay">-->
+<!--                <div class="overlay-panel overlay-left">-->
+<!--                    <h1>Welcome Back!</h1>-->
+<!--                    <p>To keep connected with us please login with your personal info</p>-->
+<!--                    <button class="ghost" id="signIn">Sign In</button>-->
+<!--                </div>-->
+<!--                <div class="overlay-panel overlay-right">-->
+<!--                    <h1>Hello, Friend!</h1>-->
+<!--                    <p>Enter your personal details and start journey with us</p>-->
+<!--                    <button class="ghost" id="signUp">Sign Up</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <script th:src="@{/js/pages/login.js}"></script>-->
+<!--    <script th:src="@{/js/bootstrap/bootstrap.bundle.min.js}"></script>-->
+<!--</body>-->
+<!--</html>-->

@@ -1,0 +1,10 @@
+.navbar-header{
+    background-color: #F596AA;
+    color: white;
+}
+.navbar-header .nav-item a.nav-link{
+    color: white;
+}
+.header-css .text-p{
+    margin-left: 120px;
+}
